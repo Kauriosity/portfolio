@@ -1,59 +1,28 @@
 "use client";
-import { IconGraduationCap, IconCode2, IconDatabase, IconCpu } from "./Icons";
-
-const interests = [
-  { icon: <IconCode2 size={18} />, title: "Full-Stack Development", desc: "Building end-to-end web applications with modern frameworks." },
-  { icon: <IconDatabase size={18} />, title: "Backend & Scalable Systems", desc: "Designing robust APIs and data-driven backend architectures." },
-  { icon: <IconCpu size={18} />, title: "DSA & Problem Solving", desc: "Competitive programming and algorithmic thinking." },
-];
 
 export default function About() {
   return (
-    <section id="about" className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <p className="section-subtitle">About Me</p>
-        <h2 className="section-title">Who I am</h2>
-        <div className="divider w-full mb-12" />
-
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div>
-            <p className="text-base leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
-              I'm a Computer Science student at{" "}
-              <span style={{ color: "var(--text-primary)" }} className="font-medium">Bennett University</span>{" "}
-              specialising in Data Science. I love building products that are both technically sound and genuinely useful — from data models to polished UIs.
-            </p>
-            <p className="text-base leading-relaxed mb-8" style={{ color: "var(--text-secondary)" }}>
-              Outside of coursework, I explore backend systems, contribute to open-source projects, and solve DSA problems to keep my algorithmic instincts sharp.
-            </p>
-
-            <div className="card p-5">
-              <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-lg" style={{ background: "var(--accent-subtle)", color: "var(--accent-light)" }}>
-                  <IconGraduationCap size={20} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-sm mb-0.5" style={{ color: "var(--text-primary)" }}>Bennett University</h3>
-                  <p className="text-xs mb-1" style={{ color: "var(--text-secondary)" }}>B.Tech in Computer Science (Data Science)</p>
-                  <p style={{ color: "var(--text-muted)", fontSize: "0.75rem", fontFamily: "JetBrains Mono, monospace" }}>
-                    2023 – 2027 &nbsp;·&nbsp; CGPA: 8.47
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            {interests.map((item) => (
-              <div key={item.title} className="card p-5 flex items-start gap-4 cursor-default">
-                <div className="p-2.5 rounded-lg" style={{ background: "var(--accent-subtle)", color: "var(--accent-light)" }}>
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="font-medium text-sm mb-1" style={{ color: "var(--text-primary)" }}>{item.title}</h3>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{item.desc}</p>
-                </div>
-              </div>
-            ))}
+    <section id="about" className="py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="max-w-2xl">
+          <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
+            About
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-6">
+            Building toward scalable systems
+          </h2>
+          <p className="text-[#a1a1aa] leading-relaxed text-base md:text-lg">
+            Computer Science student at{" "}
+            <span className="text-white">Bennett University</span> (CGPA:{" "}
+            <span className="text-white">8.47</span>), focused on problem
+            solving, backend systems, and scalable applications. Strong
+            foundation in DSA, OOP, DBMS, and system design.
+          </p>
+          <div className="mt-8 flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-sm text-[#71717a]">
+              Open for internships &amp; collaborations
+            </span>
           </div>
         </div>
       </div>

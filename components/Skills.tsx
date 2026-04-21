@@ -1,74 +1,56 @@
 "use client";
-import { useState } from "react";
 
-const skillCategories = [
-  { category: "Languages", skills: ["C++", "Java", "Python", "JavaScript", "SQL"] },
-  { category: "Frontend", skills: ["React.js", "Next.js", "HTML", "CSS", "Tailwind CSS"] },
-  { category: "Backend", skills: ["Express.js", "Django", "REST APIs"] },
-  { category: "Databases", skills: ["PostgreSQL", "SQL"] },
-  { category: "Core CS", skills: ["DSA", "OOP", "DBMS", "OS", "SOLID Principles", "Design Patterns"] },
-  { category: "Tools", skills: ["Git", "GitHub", "VS Code", "Power BI", "Google Colab"] },
+const skillGroups = [
+  {
+    category: "Languages",
+    skills: ["C++", "Java"],
+  },
+  {
+    category: "Core CS",
+    skills: ["DSA", "OOP", "DBMS", "OS", "SOLID", "Design Patterns"],
+  },
+  {
+    category: "Web",
+    skills: ["JavaScript", "Next.js", "React.js", "Express.js", "Django"],
+  },
+  {
+    category: "Database",
+    skills: ["PostgreSQL", "MySQL"],
+  },
+  {
+    category: "Tools",
+    skills: ["Git", "GitHub", "Postman"],
+  },
 ];
-
-function SkillTag({ skill }: { skill: string }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <span
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        fontFamily: "JetBrains Mono, monospace",
-        fontSize: "0.7rem",
-        padding: "5px 10px",
-        borderRadius: "6px",
-        background: hovered ? "var(--accent-subtle-hover)" : "var(--accent-subtle)",
-        color: hovered ? "var(--accent-light)" : "rgba(129,140,248,0.85)",
-        border: `1px solid ${hovered ? "rgba(99,102,241,0.4)" : "rgba(99,102,241,0.15)"}`,
-        transform: hovered ? "translateY(-1px)" : "none",
-        transition: "all 0.2s ease",
-        cursor: "default",
-        display: "inline-block",
-        userSelect: "none",
-        margin: "3px",
-      }}
-    >
-      {skill}
-    </span>
-  );
-}
 
 export default function Skills() {
   return (
-    <section id="skills" className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <p className="section-subtitle">Skills</p>
-        <h2 className="section-title">What I work with</h2>
-        <div className="divider w-full mb-12" />
+    <section id="skills" className="py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
+          Skills
+        </p>
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-12">
+          Technical Skills
+        </h2>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {skillCategories.map((cat) => (
-            <div key={cat.category} className="card p-6">
-              <h3
-                style={{
-                  color: "var(--accent)",
-                  fontSize: "0.7rem",
-                  fontFamily: "JetBrains Mono, monospace",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.15em",
-                  marginBottom: "14px",
-                }}
-              >
-                {cat.category}
-              </h3>
-              <div style={{ display: "flex", flexWrap: "wrap", margin: "-3px" }}>
-                {cat.skills.map((skill) => (
-                  <SkillTag key={skill} skill={skill} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skillGroups.map((group) => (
+            <div
+              key={group.category}
+              className="border border-white/[0.07] rounded-xl p-6 bg-white/[0.02] hover:border-white/[0.12] transition-colors duration-200"
+            >
+              <p className="text-xs font-mono text-[#6366f1] tracking-wider uppercase mb-4">
+                {group.category}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="text-sm px-3 py-1 rounded-md bg-white/[0.04] text-[#a1a1aa] border border-white/[0.05] hover:text-white hover:border-white/[0.12] transition-colors duration-150"
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>

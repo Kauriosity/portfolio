@@ -2,24 +2,25 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gurjot Kaur — Full Stack Developer",
+  title: "Gurjot Kaur — Software Engineer Aspirant",
   description:
-    "Portfolio of Gurjot Kaur, a Computer Science student and Full Stack Developer specializing in scalable web applications, DSA, and backend systems.",
+    "Portfolio of Gurjot Kaur, a Computer Science student at Bennett University focused on building scalable systems with strong foundations in DSA, OOP, DBMS, and core CS fundamentals.",
   keywords: [
     "Gurjot Kaur",
-    "Full Stack Developer",
+    "Software Engineer",
     "Next.js",
     "React",
     "DSA",
     "Portfolio",
     "CS Student",
     "Bennett University",
+    "Backend Systems",
   ],
   authors: [{ name: "Gurjot Kaur" }],
   openGraph: {
-    title: "Gurjot Kaur — Full Stack Developer",
+    title: "Gurjot Kaur — Software Engineer Aspirant",
     description:
-      "Computer Science student building scalable full-stack web applications.",
+      "CS student building scalable systems with strong CS fundamentals.",
     type: "website",
   },
 };
@@ -30,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="antialiased">{children}</body>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
+      <body className="antialiased" suppressHydrationWarning={true}>{children}</body>
     </html>
   );
 }

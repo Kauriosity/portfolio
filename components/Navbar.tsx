@@ -4,10 +4,9 @@ import { IconMenu, IconX } from "./Icons";
 
 const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "Achievements", href: "#achievements" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -18,9 +17,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (const id of [...sections].reverse()) {
+      setScrolled(window.scrollY > 20);
+      const sectionIds = navLinks.map((l) => l.href.slice(1));
+      for (const id of [...sectionIds].reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) {
           setActive(id);
@@ -42,57 +41,66 @@ export default function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(10,10,15,0.85)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid var(--border)" : "none",
+        borderBottom: scrolled
+          ? "1px solid rgba(255,255,255,0.06)"
+          : "1px solid transparent",
+        background: scrolled ? "rgba(5,8,16,0.85)" : "transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
       }}
     >
-      <nav className="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-14 flex items-center justify-between">
+        {/* Logo */}
         <button
+          id="navbar-logo"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          style={{ color: "var(--accent-light)", fontFamily: "JetBrains Mono, monospace", fontSize: "0.875rem", fontWeight: 500 }}
-          className="hover:opacity-80 transition-opacity"
+          className="text-sm font-medium text-white hover:text-white/70 transition-colors duration-200"
         >
-          gurjot.dev
+          Gurjot Kaur
         </button>
 
-        <ul className="hidden md:flex items-center gap-1">
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
             const id = link.href.slice(1);
+            const isActive = active === id;
             return (
-              <li key={id}>
-                <button
-                  onClick={() => handleLinkClick(link.href)}
-                  className="relative px-4 py-2 text-sm rounded-md transition-colors duration-200"
-                  style={{ color: active === id ? "var(--accent-light)" : "var(--text-secondary)" }}
-                >
-                  {link.label}
-                  {active === id && (
-                    <span
-                      className="absolute bottom-1 left-0 right-0 mx-auto w-1 h-1 rounded-full"
-                      style={{ background: "var(--accent)", display: "block", width: 4, height: 4, margin: "0 auto" }}
-                    />
-                  )}
-                </button>
-              </li>
+              <button
+                key={id}
+                id={`nav-${id}`}
+                onClick={() => handleLinkClick(link.href)}
+                className="px-4 py-1.5 text-sm rounded-md transition-colors duration-200"
+                style={{
+                  color: isActive ? "#ffffff" : "#71717a",
+                  background: isActive
+                    ? "rgba(255,255,255,0.06)"
+                    : "transparent",
+                }}
+              >
+                {link.label}
+              </button>
             );
           })}
-        </ul>
+        </nav>
 
+        {/* Mobile toggle */}
         <button
-          className="md:hidden p-2 rounded-lg"
-          style={{ color: "var(--text-secondary)" }}
+          id="navbar-mobile-toggle"
+          className="md:hidden text-[#71717a] hover:text-white transition-colors p-1"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          {menuOpen ? <IconX size={20} /> : <IconMenu size={20} />}
+          {menuOpen ? <IconX size={18} /> : <IconMenu size={18} />}
         </button>
-      </nav>
+      </div>
 
+      {/* Mobile menu */}
       {menuOpen && (
         <div
-          className="md:hidden px-6 pb-4"
-          style={{ background: "rgba(10,10,15,0.97)", borderTop: "1px solid var(--border)" }}
+          className="md:hidden border-t px-6 py-4 space-y-1"
+          style={{
+            borderColor: "rgba(255,255,255,0.06)",
+            background: "rgba(5,8,16,0.95)",
+          }}
         >
           {navLinks.map((link) => {
             const id = link.href.slice(1);
@@ -100,11 +108,8 @@ export default function Navbar() {
               <button
                 key={id}
                 onClick={() => handleLinkClick(link.href)}
-                className="block w-full text-left py-3 text-sm border-b transition-colors"
-                style={{
-                  color: active === id ? "var(--accent-light)" : "var(--text-secondary)",
-                  borderColor: "var(--border)",
-                }}
+                className="block w-full text-left py-2.5 text-sm transition-colors duration-200"
+                style={{ color: active === id ? "#ffffff" : "#71717a" }}
               >
                 {link.label}
               </button>

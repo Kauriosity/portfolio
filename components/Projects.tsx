@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { IconX, IconGithub, IconArrowUpRight, IconExternalLink } from "./Icons";
+import { useState, useEffect } from "react";
+import { IconX, IconGithub } from "./Icons";
 
 interface Project {
   id: number;
@@ -9,7 +9,6 @@ interface Project {
   longDescription: string;
   tech: string[];
   github: string;
-  demo: string;
   highlights: string[];
 }
 
@@ -17,82 +16,114 @@ const projects: Project[] = [
   {
     id: 1,
     title: "Swasthini – Women Healthcare Platform",
-    description: "Full-stack women healthcare platform for menstrual cycle tracking, symptom logging, ovulation prediction, doctor appointment booking, and health analytics.",
-    longDescription: "Swasthini is a comprehensive women's healthcare platform that empowers users to take charge of their health. It features menstrual cycle tracking with AI-powered predictions, symptom logging, ovulation prediction, doctor appointment booking with calendar integration, and an analytics dashboard to visualise health trends over time.",
-    tech: ["Next.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
+    description:
+      "Cycle tracking, symptom logging, appointment system, and real-time insights dashboard.",
+    longDescription:
+      "Swasthini is a women's healthcare platform built to empower users with health visibility. Features include menstrual cycle tracking, symptom logging, ovulation prediction, doctor appointment booking, and an analytics dashboard to surface health trends over time.",
+    tech: ["Next.js", "Express.js", "PostgreSQL"],
     github: "https://github.com/Kauriosity",
-    demo: "#",
-    highlights: ["Menstrual cycle & ovulation prediction", "Doctor appointment booking system", "Health analytics dashboard", "Symptom logging & history"],
+    highlights: [
+      "Backend APIs with structured data handling",
+      "Cycle tracking and symptom logging system",
+      "Doctor appointment booking",
+      "Real-time insights dashboard",
+    ],
   },
   {
     id: 2,
     title: "Campus Connect",
-    description: "College recommendation platform suggesting colleges based on academic scores, entrance exams, and interests with dynamic filtering.",
-    longDescription: "Campus Connect helps students make informed decisions about their higher education by providing personalised college recommendations. The platform takes academic scores, entrance exam performance, and personal interests as inputs and dynamically filters colleges, allowing students to compare options side by side.",
-    tech: ["React.js", "Django", "Tailwind CSS"],
+    description:
+      "College recommendation system with dynamic filtering and personalised suggestions.",
+    longDescription:
+      "Campus Connect helps students make informed higher-education decisions. The platform takes academic scores, entrance exam performance, and personal interests as inputs, then dynamically filters and ranks colleges using an API-based architecture.",
+    tech: ["React.js", "Django"],
     github: "https://github.com/Kauriosity",
-    demo: "#",
-    highlights: ["Personalised college recommendations", "Dynamic multi-filter system", "Academic & interest-based matching", "Side-by-side comparison"],
+    highlights: [
+      "Dynamic filtering and personalised suggestions",
+      "API-based recommendation architecture",
+      "Academic and interest-based matching",
+      "Side-by-side college comparison",
+    ],
   },
 ];
 
-function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
+function ProjectModal({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [onClose]);
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(10px)" }}
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-xl p-7 shadow-2xl"
-        style={{ background: "var(--bg-card)", border: "1px solid var(--border-hover)" }}
+        className="relative w-full max-w-md rounded-xl p-8 shadow-2xl border border-white/[0.08]"
+        style={{ background: "#0c0c10" }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg transition-colors"
-          style={{ color: "var(--text-muted)" }}
-          aria-label="Close modal"
-          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-primary)")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")}
+          className="absolute top-5 right-5 p-1.5 rounded-lg hover:bg-white/8 text-[#52525b] hover:text-white transition-colors"
+          aria-label="Close"
         >
           <IconX size={18} />
         </button>
 
-        <h3 className="text-lg font-semibold mb-3 pr-8" style={{ color: "var(--text-primary)" }}>
+        <h3 className="text-xl font-semibold text-white mb-3 pr-8 leading-snug">
           {project.title}
         </h3>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-sm text-[#71717a] leading-relaxed mb-6">
           {project.longDescription}
         </p>
 
-        <h4
-          className="mb-3 uppercase tracking-widest"
-          style={{ color: "var(--accent)", fontSize: "0.7rem", fontFamily: "JetBrains Mono, monospace" }}
-        >
-          Key Features
-        </h4>
-        <ul className="mb-6 space-y-1.5">
+        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-3">
+          Highlights
+        </p>
+        <ul className="mb-6 space-y-2">
           {project.highlights.map((h) => (
-            <li key={h} className="flex items-start gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
-              <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--accent)", display: "inline-block", minWidth: 4, minHeight: 4 }} />
+            <li key={h} className="flex items-start gap-3 text-sm text-[#a1a1aa]">
+              <span className="mt-[7px] w-1 h-1 rounded-full bg-[#6366f1] flex-shrink-0" />
               {h}
             </li>
           ))}
         </ul>
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech.map((t) => <span key={t} className="tag">{t}</span>)}
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] text-[#a1a1aa] border border-white/[0.06]"
+            >
+              {t}
+            </span>
+          ))}
         </div>
 
-        <div className="flex gap-3">
-          <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-            <IconGithub size={15} /> GitHub
-          </a>
-          <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-primary">
-            <IconExternalLink size={15} /> Live Demo
-          </a>
-        </div>
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm text-[#a1a1aa] border border-white/[0.08] rounded-lg px-4 py-2 hover:text-white hover:border-white/[0.18] transition-all duration-200"
+        >
+          <IconGithub size={14} />
+          Source Code
+        </a>
       </div>
     </div>
   );
@@ -102,54 +133,47 @@ export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <p className="section-subtitle">Projects</p>
-        <h2 className="section-title">Things I&apos;ve built</h2>
-        <div className="divider w-full mb-12" />
+    <section id="projects" className="py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
+          Projects
+        </p>
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-12">
+          Featured Work
+        </h2>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl">
           {projects.map((project) => (
             <button
               key={project.id}
+              id={`project-card-${project.id}`}
               onClick={() => setSelected(project)}
-              className="card p-6 text-left group"
-              style={{ transition: "transform 0.2s, border-color 0.2s, background 0.2s" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(-4px)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "translateY(0)")}
+              className="text-left border border-white/[0.07] rounded-xl p-6 bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04] transition-all duration-200 group cursor-pointer"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div
-                  className="px-2.5 py-1 rounded"
-                  style={{ fontFamily: "JetBrains Mono, monospace", fontSize: "0.75rem", background: "var(--accent-subtle)", color: "var(--accent-light)", border: "1px solid rgba(99,102,241,0.2)" }}
-                >
-                  0{project.id}
-                </div>
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--accent-light)" }}>
-                  <IconArrowUpRight size={16} />
-                </span>
-              </div>
-
-              <h3 className="font-semibold text-base mb-2" style={{ color: "var(--text-primary)" }}>
+              <h3 className="text-white font-semibold text-base mb-2 group-hover:text-white/90 leading-snug">
                 {project.title}
               </h3>
-              <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm text-[#71717a] leading-relaxed mb-5">
                 {project.description}
               </p>
-
               <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => <span key={t} className="tag">{t}</span>)}
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] text-[#52525b] border border-white/[0.05]"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
             </button>
           ))}
         </div>
-
-        <p className="text-center mt-8 text-sm" style={{ color: "var(--text-muted)" }}>
-          Click a card to view details →
-        </p>
       </div>
 
-      {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <ProjectModal project={selected} onClose={() => setSelected(null)} />
+      )}
     </section>
   );
 }

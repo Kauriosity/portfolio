@@ -1,29 +1,35 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
+
+const Divider = () => (
+  <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+    <div className="h-px bg-white/[0.05]" />
+  </div>
+);
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="bg-[#050810]">
         <Hero />
-        <div className="divider max-w-6xl mx-auto" />
+        <Divider />
         <About />
-        <div className="divider max-w-6xl mx-auto" />
-        <Skills />
-        <div className="divider max-w-6xl mx-auto" />
+        <Divider />
         <Projects />
-        <div className="divider max-w-6xl mx-auto" />
+        <Divider />
+        <Skills />
+        <Divider />
         <Experience />
-        <div className="divider max-w-6xl mx-auto" />
+        <Divider />
         <Achievements />
-        <div className="divider max-w-6xl mx-auto" />
+        <Divider />
         <Contact />
       </main>
     </>
