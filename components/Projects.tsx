@@ -1,10 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
-import { IconX, IconGithub } from "./Icons";
+import React from "react";
+import { motion } from "framer-motion";
+import SectionWrapper from "./ui/SectionWrapper";
+import Card from "./ui/Card";
+import Button from "./ui/Button";
+import { IconGithub } from "./Icons";
 
 interface Project {
   id: number;
   title: string;
+  problem: string;
   description: string;
   longDescription: string;
   tech: string[];
@@ -16,164 +21,137 @@ const projects: Project[] = [
   {
     id: 1,
     title: "Swasthini – Women Healthcare Platform",
+    problem: "Women lack accessible, centralized tools for tracking menstrual health and booking healthcare services.",
     description:
-      "Cycle tracking, symptom logging, appointment system, and real-time insights dashboard.",
+      "Full-stack healthcare platform with cycle prediction, symptom logging, appointment booking, and a real-time health insights dashboard.",
     longDescription:
-      "Swasthini is a women's healthcare platform built to empower users with health visibility. Features include menstrual cycle tracking, symptom logging, ovulation prediction, doctor appointment booking, and an analytics dashboard to surface health trends over time.",
-    tech: ["Next.js", "Express.js", "PostgreSQL"],
+      "Swasthini is a women's healthcare platform built to give users full visibility into their health. The system predicts upcoming menstrual cycles and ovulation windows using historical data, enables daily symptom logging, and powers a dashboard that surfaces trends and anomalies over time.",
+    tech: ["Next.js", "Express.js", "PostgreSQL", "Prisma"],
     github: "https://github.com/Kauriosity",
     highlights: [
-      "Backend APIs with structured data handling",
-      "Cycle tracking and symptom logging system",
-      "Doctor appointment booking",
-      "Real-time insights dashboard",
+      "Menstrual cycle prediction using historical pattern analysis",
+      "Dashboard with health trend insights and anomaly detection",
+      "Integrated doctor appointment booking system",
+      "Secure user authentication and health record persistence",
     ],
   },
   {
     id: 2,
     title: "Campus Connect",
+    problem: "Students struggle to discover and compare colleges that match their academic profile and personal interests.",
     description:
-      "College recommendation system with dynamic filtering and personalised suggestions.",
+      "College recommendation system with academic score-based dynamic filtering, interest matching, and side-by-side college comparison.",
     longDescription:
-      "Campus Connect helps students make informed higher-education decisions. The platform takes academic scores, entrance exam performance, and personal interests as inputs, then dynamically filters and ranks colleges using an API-based architecture.",
-    tech: ["React.js", "Django"],
+      "Campus Connect helps students make informed higher-education decisions by accepting academic scores and personal interests to dynamically filter and rank colleges with a side-by-side comparison view.",
+    tech: ["React.js", "Django", "PostgreSQL", "Tailwind CSS"],
     github: "https://github.com/Kauriosity",
     highlights: [
-      "Dynamic filtering and personalised suggestions",
-      "API-based recommendation architecture",
-      "Academic and interest-based matching",
-      "Side-by-side college comparison",
+      "Dynamic filtering by score, stream, location, and entrance exam",
+      "Personalized recommendation engine based on user interests",
+      "Side-by-side college comparison tool for key metrics",
+      "Clean API-based architecture for seamless data handling",
     ],
   },
 ];
 
-function ProjectModal({
-  project,
-  onClose,
-}: {
-  project: Project;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKey);
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(10px)" }}
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-md rounded-xl p-8 shadow-2xl border border-white/[0.08]"
-        style={{ background: "#0c0c10" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 p-1.5 rounded-lg hover:bg-white/8 text-[#52525b] hover:text-white transition-colors"
-          aria-label="Close"
-        >
-          <IconX size={18} />
-        </button>
-
-        <h3 className="text-xl font-semibold text-white mb-3 pr-8 leading-snug">
-          {project.title}
-        </h3>
-        <p className="text-sm text-[#71717a] leading-relaxed mb-6">
-          {project.longDescription}
-        </p>
-
-        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-3">
-          Highlights
-        </p>
-        <ul className="mb-6 space-y-2">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex items-start gap-3 text-sm text-[#a1a1aa]">
-              <span className="mt-[7px] w-1 h-1 rounded-full bg-[#6366f1] flex-shrink-0" />
-              {h}
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] text-[#a1a1aa] border border-white/[0.06]"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm text-[#a1a1aa] border border-white/[0.08] rounded-lg px-4 py-2 hover:text-white hover:border-white/[0.18] transition-all duration-200"
-        >
-          <IconGithub size={14} />
-          Source Code
-        </a>
-      </div>
-    </div>
-  );
-}
-
 export default function Projects() {
-  const [selected, setSelected] = useState<Project | null>(null);
-
   return (
-    <section id="projects" className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
-          Projects
+    <SectionWrapper id="projects">
+      <div className="mb-16">
+        <p className="text-xs font-mono text-indigo-500 tracking-widest uppercase mb-4">
+          02 // Selected Works
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-12">
-          Featured Work
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          Featured Projects
         </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl">
-          {projects.map((project) => (
-            <button
-              key={project.id}
-              id={`project-card-${project.id}`}
-              onClick={() => setSelected(project)}
-              className="text-left border border-white/[0.07] rounded-xl p-6 bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04] transition-all duration-200 group cursor-pointer"
-            >
-              <h3 className="text-white font-semibold text-base mb-2 group-hover:text-white/90 leading-snug">
-                {project.title}
-              </h3>
-              <p className="text-sm text-[#71717a] leading-relaxed mb-5">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs px-2.5 py-1 rounded-md bg-white/[0.04] text-[#52525b] border border-white/[0.05]"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </button>
-          ))}
-        </div>
+        <p className="text-gray-400 text-lg max-w-2xl">
+          A collection of full-stack platforms focused on solving real-world
+          problems through data-driven architectures.
+        </p>
       </div>
 
-      {selected && (
-        <ProjectModal project={selected} onClose={() => setSelected(null)} />
-      )}
-    </section>
+      <div className="space-y-12">
+        {projects.map((project, index) => (
+          <Card key={project.id} className="p-0 md:p-0 overflow-hidden group">
+            <div className="flex flex-col md:flex-row">
+              {/* Content Left */}
+              <div className="flex-1 p-8 md:p-12">
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors">
+                  {project.title}
+                </h3>
+                
+                <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="mb-8">
+                  <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">
+                    Key Features
+                  </p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                    {project.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-3 text-sm text-gray-400">
+                        <span className="mt-[6px] w-1.5 h-1.5 rounded-full bg-indigo-500/40 flex-shrink-0" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <Button variant="primary" icon={<IconGithub size={16} />}>
+                      View Project
+                    </Button>
+                  </a>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <Button variant="ghost" className="text-gray-400 hover:text-white">
+                      Source Code
+                    </Button>
+                  </a>
+                </div>
+              </div>
+
+              {/* Visual Placeholder Right */}
+              <div className="w-full md:w-[40%] bg-white/5 border-l border-white/10 relative overflow-hidden hidden md:block">
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-transparent to-transparent" />
+                <div className="h-full w-full flex items-center justify-center text-white/5 font-bold text-9xl select-none">
+                  0{index + 1}
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center p-12">
+                   <div className="w-full h-full rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl overflow-hidden">
+                      <div className="h-6 w-full bg-white/10 flex items-center px-3 gap-1.5">
+                         <div className="w-2 h-2 rounded-full bg-white/20" />
+                         <div className="w-2 h-2 rounded-full bg-white/20" />
+                         <div className="w-2 h-2 rounded-full bg-white/20" />
+                      </div>
+                      <div className="p-4 space-y-3">
+                         <div className="h-4 w-3/4 rounded bg-white/10 animate-pulse" />
+                         <div className="h-4 w-1/2 rounded bg-white/10 animate-pulse" />
+                         <div className="grid grid-cols-2 gap-3 mt-8">
+                            <div className="h-20 rounded bg-white/5" />
+                            <div className="h-20 rounded bg-white/5" />
+                         </div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </SectionWrapper>
   );
 }
+

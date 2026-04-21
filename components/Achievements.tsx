@@ -1,4 +1,6 @@
 "use client";
+import SectionWrapper from "./ui/SectionWrapper";
+import Card from "./ui/Card";
 
 const achievements = [
   {
@@ -20,34 +22,32 @@ const achievements = [
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
-          Recognition
+    <SectionWrapper id="achievements">
+      <div className="mb-12">
+        <p className="text-xs font-mono text-indigo-500 tracking-widest uppercase mb-4">
+          03 // Recognition
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-12">
-          Achievements &amp; Roles
+        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+          Achievements & Roles
         </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {achievements.map((item) => (
-            <div
-              key={item.title}
-              className="border border-white/[0.07] rounded-xl p-6 bg-white/[0.02] hover:border-white/[0.12] transition-colors duration-200"
-            >
-              <p className="text-xs font-mono text-[#52525b] tracking-wider uppercase mb-3">
-                {item.meta}
-              </p>
-              <h3 className="text-white text-base font-semibold mb-2 leading-snug">
-                {item.title}
-              </h3>
-              <p className="text-sm text-[#71717a] leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
-    </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {achievements.map((item) => (
+          <Card key={item.title} className="h-full border-white/5 hover:border-indigo-500/30">
+            <p className="text-[10px] font-mono text-indigo-400 tracking-wider uppercase mb-4">
+              {item.meta}
+            </p>
+            <h3 className="text-white text-lg font-bold mb-3 leading-snug">
+              {item.title}
+            </h3>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              {item.desc}
+            </p>
+          </Card>
+        ))}
+      </div>
+    </SectionWrapper>
   );
 }
+

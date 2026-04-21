@@ -1,60 +1,88 @@
 "use client";
+import React from "react";
+import SectionWrapper from "./ui/SectionWrapper";
+import Card from "./ui/Card";
 import { IconMail, IconGithub, IconLinkedin } from "./Icons";
+import { BsTelephone } from "react-icons/bs";
 
-const links = [
+const contactItems = [
   {
-    id: "contact-email",
+    id: "email",
     label: "Email",
+    value: "gurjotkaur110905@gmail.com",
     href: "mailto:gurjotkaur110905@gmail.com",
-    icon: <IconMail size={16} />,
+    icon: <IconMail size={20} />,
   },
   {
-    id: "contact-github",
+    id: "phone",
+    label: "Phone",
+    value: "+91 8209502178",
+    href: "tel:+918209502178",
+    icon: <BsTelephone size={18} />,
+  },
+  {
+    id: "github",
     label: "GitHub",
+    value: "github.com/Kauriosity",
     href: "https://github.com/Kauriosity",
-    icon: <IconGithub size={16} />,
+    icon: <IconGithub size={20} />,
   },
   {
-    id: "contact-linkedin",
+    id: "linkedin",
     label: "LinkedIn",
+    value: "linkedin.com/in/kauriosity",
     href: "https://linkedin.com/in/kauriosity",
-    icon: <IconLinkedin size={16} />,
+    icon: <IconLinkedin size={20} />,
   },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
-          Contact
+    <SectionWrapper id="contact">
+      <div className="max-w-3xl">
+        <p className="text-xs font-mono text-indigo-500 tracking-widest uppercase mb-4">
+          05 // Reach Out
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-10">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
           Get in Touch
         </h2>
+        <p className="text-gray-400 text-lg mb-12">
+          I'm currently looking for new opportunities and collaborations. 
+          Whether you have a question or just want to say hi, I'll try my best to get back to you!
+        </p>
 
-        <div className="flex flex-wrap gap-3">
-          {links.map((link) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {contactItems.map((item) => (
             <a
-              key={link.id}
-              id={link.id}
-              href={link.href}
-              target={link.href.startsWith("mailto") ? undefined : "_blank"}
+              key={item.id}
+              href={item.href}
+              target={item.href.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium text-[#a1a1aa] border border-white/[0.08] rounded-lg hover:text-white hover:border-white/[0.18] hover:bg-white/[0.04] transition-all duration-200"
+              className="block"
             >
-              {link.icon}
-              {link.label}
+              <Card className="p-6 h-full flex items-center gap-5 group border-white/5 hover:border-indigo-500/30">
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-indigo-400 group-hover:bg-indigo-500/10 transition-all duration-300">
+                  {item.icon}
+                </div>
+                <div>
+                  <p className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-sm font-medium text-white group-hover:text-gray-200 transition-colors">
+                    {item.value}
+                  </p>
+                </div>
+              </Card>
             </a>
           ))}
         </div>
 
-        <div className="mt-24 md:mt-32 pt-8 border-t border-white/[0.06]">
-          <p className="text-sm text-[#3f3f46]">
-            © 2025 Gurjot Kaur. All rights reserved.
+        <div className="mt-32 pt-8 border-t border-white/5">
+          <p className="text-sm text-gray-500 font-mono">
+            © 2025 Gurjot Kaur. Built with precision.
           </p>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

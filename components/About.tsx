@@ -1,31 +1,44 @@
 "use client";
+import SectionWrapper from "./ui/SectionWrapper";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="max-w-2xl">
-          <p className="text-xs font-mono text-[#6366f1] tracking-widest uppercase mb-4">
-            About
+    <SectionWrapper id="about">
+      <div className="max-w-3xl">
+        <p className="text-xs font-mono text-indigo-500 tracking-widest uppercase mb-4">
+          01 // About
+        </p>
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
+          Building toward <span className="text-indigo-500">scalable systems</span>
+        </h2>
+        
+        <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
+          <p>
+            I am a Computer Science student at{" "}
+            <span className="text-white font-medium">Bennett University</span>{" "}
+            (CGPA: <span className="text-white font-medium">8.47</span>) with a strong foundation in 
+            Data Structures and Algorithms and a dedicated focus on MERN stack development.
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-6">
-            Building toward scalable systems
-          </h2>
-          <p className="text-[#a1a1aa] leading-relaxed text-base md:text-lg">
-            Computer Science student at{" "}
-            <span className="text-white">Bennett University</span> (CGPA:{" "}
-            <span className="text-white">8.47</span>), focused on problem
-            solving, backend systems, and scalable applications. Strong
-            foundation in DSA, OOP, DBMS, and system design.
+          
+          <p>
+            My experience lies in building full-stack applications using React.js, Node.js, Express.js, and SQL. 
+            I have hands-on experience in architecting RESTful APIs and database-driven systems that emphasize 
+            performance and modularity.
           </p>
-          <div className="mt-8 flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-[#71717a]">
-              Open for internships &amp; collaborations
-            </span>
-          </div>
+          
+          <p>
+            Currently, I'm developing scalable platforms including a healthcare system and recommendation 
+            engines, always prioritizing clean code and optimization.
+          </p>
+        </div>
+
+        <div className="mt-12 flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 w-fit">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-sm font-medium text-gray-300">
+            Open for internships & full-time offers
+          </span>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

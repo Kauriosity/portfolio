@@ -6,13 +6,12 @@
 
 @layer base {
   :root {
-    --bg-primary: #050810;
+    --bg-primary: #020617;
     --text-primary: #ffffff;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --text-faint: #52525b;
-    --border: rgba(255, 255, 255, 0.07);
-    --border-hover: rgba(255, 255, 255, 0.14);
+    --text-secondary: #94a3b8; /* gray-400 equivalent */
+    --text-muted: #64748b; /* gray-500 equivalent */
+    --border: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.2);
     --accent: #6366f1;
     --accent-light: #818cf8;
   }
@@ -27,14 +26,23 @@
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.625; /* leading-relaxed */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-bold;
+  }
+
+  p {
+    @apply leading-relaxed;
   }
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #050810; }
-::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #020617; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #334155; }
 
 /* Selection */
-::selection { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+::selection { background: rgba(99, 102, 241, 0.2); color: #ffffff; }
